@@ -1,0 +1,42 @@
+<div class="modal fade list-delete-modal" 
+     id="delete-list-modal-{{ list.id }}" 
+     data-bs-backdrop="false" 
+     tabindex="-1" 
+     aria-hidden="true">
+  
+  <div class="modal-dialog shadow-lg">
+    <div class="modal-content" style="background-color: #fdf6e3; border-radius: 12px;">
+
+      <div class="modal-header" style="border-bottom: 1px solid #e2d8c3;">
+        <h5 class="modal-title" style="color: #4b3e2f;">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p style="color: #5c4c36;">Are you sure you want to delete <strong>{{ list.name }}</strong>?</p>
+      </div>
+
+      <div class="modal-footer justify-content-end" style="border-top: 1px solid #e2d8c3;">
+        <button type="button" class="btn"
+                style="background-color: #8c7a63; color: white; border: none; border-radius: 6px;"
+                data-bs-dismiss="modal">
+          Cancel
+        </button>
+
+        <form 
+          hx-post="{% url 'delete_list' list.id %}"
+          hx-swap="innerHTML"
+          hx-target="#user_lists_container"
+          method="POST"
+          style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn"
+                  style="background-color: #b3433c; color: white; border: none; border-radius: 6px;">
+            Yes, Delete
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

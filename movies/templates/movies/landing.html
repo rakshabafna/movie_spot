@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid" style="background-color: #e0d6b9; height: 100vh; padding-top: 50px;">
+
+  <div class="text-center mb-5">
+    <h1 class="display-3 fw-bold" style="font-family: 'Cinzel', serif; color: #5b3a29;">CineVibes</h1>
+    <p class="lead" style="color: #5b3a29;">Where Movies Come to Life</p>
+  </div>
+
+  <form method="get" class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="dropdown">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          Browse Categories
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+          <li><a class="dropdown-item" href="?category=popular" {% if category == 'popular' %}selected{% endif %}>Popular</a></li>
+          <li><a class="dropdown-item" href="?category=now_playing" {% if category == 'now_playing' %}selected{% endif %}>Now Playing</a></li>
+          <li><a class="dropdown-item" href="?category=top_rated" {% if category == 'top_rated' %}selected{% endif %}>Top Rated</a></li>
+          <li><a class="dropdown-item" href="?category=upcoming" {% if category == 'upcoming' %}selected{% endif %}>Upcoming</a></li>
+        </ul>
+      </div>
+    </div>
+  </form>
+
+  <form method="get" action="{% url 'landing_page' %}" hx-target="#movie-container" hx-swap="innerHTML" class="input-group mb-4 w-100 w-md-50 mx-auto">
+    <input type="text" name="search" class="form-control border-0 rounded-pill p-3" style="background-color: #d5a6b7; color: #fff;" placeholder="Search for movies..." aria-label="Search movies">
+    <button class="btn btn-dark rounded-pill" type="submit">
+      <i class="bi bi-search"></i> Search
+    </button>
+  </form>
+
+  <div id="movie-container" class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    {% include "movies/partials/movie_list.html" %}
+  </div>
+
+</div>
+{% endblock %}

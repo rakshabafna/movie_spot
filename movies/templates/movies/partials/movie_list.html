@@ -1,0 +1,20 @@
+{% if error_message%}
+  <p>{{error_message}}</p>
+  {%endif%}
+{% for movie in movies %}
+<div class="col-md">
+<a href="{% url 'movie_detail' movie.id %}" class="text-decoration-none">
+<div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{% if movie.poster_path %}https://image.tmdb.org/t/p/original/{{movie.poster_path}}{% else %}https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNNLEL-qmmLeFR1nxJuepFOgPYfnwHR56vcw&s {% endif %}" alt="{{movie.title}}">
+  <div class="card-body">
+    <h5 class="card-title">{{movie.title}}</h5>
+    <p class="card-text">{{movie.vote_average|floatformat:1}}/10</p>
+  </div>
+</div>
+</a>
+</div>
+{% endfor %}
+
+{% if has_next %}
+<div id="scroll-trigger" hx-get= "{% url 'landing_page' %}?category={{category}}&search={{search_query}}&page={{next_page}}" hx-trigger="revealed" hx-swap="beforeend" hx-target="#movie-container"></div>
+{% endif %}

@@ -1,0 +1,26 @@
+<div class="col-md-6">
+    <div class="card shadow-lg p-4" style="background-color: #fdf6e3; border: none;">
+      <h5 class="text-center mb-3" style="color: #4b3e2f;">Create New List</h5>
+      <form 
+        hx-post="{% url 'create_list' %}" 
+        hx-target="#user_lists_container" 
+        hx-swap="innerHTML">
+        
+        {% csrf_token %}
+        <div class="mb-3">
+          {{ form.name.label_tag }}
+          {{ form.name }}
+        </div>
+  
+        <button class="btn mt-2 w-100" type="submit" style="
+          background-color: #a1865e;
+          color: white;
+          border: none;
+          border-radius: 8px;
+        ">
+          Create List
+        </button>
+      </form>
+    </div>
+  </div>
+  

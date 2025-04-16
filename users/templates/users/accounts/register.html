@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Register - CineVibes{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg p-4" style="background-color: #fff0e1; border-radius: 10px;">
+                <h3 class="text-center mb-4" style="color: #5b3a29;">Register</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label class="form-label" style="color: #5b3a29;">{{ field.label }}</label>
+                        <div class="input-group">
+                            {{ field }}
+                        </div>
+                        {% if field.errors %}
+                            <p class="text-danger">{{ field.errors|striptags }}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn w-100" style="background-color: #9e7b5b; border: none; color: white; transition: background-color 0.3s ease;">
+                        Register
+                    </button>
+                </form>
+                <a href="{% url 'login' %}" class="py-2 text-center d-block" style="color: #5b3a29; text-decoration: none; margin-top: 15px;">Already have an account?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn:hover {
+        background-color: #7a5a42; /* Darker shade of beige on hover */
+        cursor: pointer; /* Indicate the button is clickable */
+    }
+
+    .input-group input, .input-group textarea {
+        width: 100%; /* Ensures the text boxes take full width */
+        padding: 10px; /* Padding to ensure they look clean */
+        border-radius: 5px; /* Rounded corners for text fields */
+        border: 1px solid #d1a08b; /* Border color matching the button */
+    }
+
+    .input-group input:focus, .input-group textarea:focus {
+        border-color: #c07c65; /* Darker border on focus */
+        outline: none; /* Remove default outline */
+    }
+</style>
+
+{% endblock %}

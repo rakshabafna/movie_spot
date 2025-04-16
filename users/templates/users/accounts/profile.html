@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - CineVibes{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center" style="color: #5b3a29;">Hello, {{ user.username|capfirst }}</h1>
+
+    <div id="user_lists_container" class="my-3">
+        <div class="card shadow-lg p-4" style="background-color: #fff0e1; border-radius: 10px;">
+            <h4 class="text-center mb-4" style="color: #5b3a29;">Your Movie Lists</h4>
+            {% include 'users/lists/partials/_user_lists.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

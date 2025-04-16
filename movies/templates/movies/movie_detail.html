@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <h1 class="text-center mb-4" style="color: #4b3e2f;">{{ movie.title }}</h1>
+
+  <div class="row">
+    <div class="col-md-5 mb-3">
+      <img 
+        class="img-fluid rounded shadow"
+        src="{% if movie.poster_path %}
+              https://image.tmdb.org/t/p/original/{{ movie.poster_path }}
+              {% else %}
+              https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNNLEL-qmmLeFR1nxJuepFOgPYfnwHR56vcw&s
+              {% endif %}" 
+        alt="{{ movie.title }}">
+    </div>
+
+    <div class="col-md-7">
+      <p class="fs-5" style="color: #5c4c36;">{{ movie.overview }}</p>
+
+      <h4 class="mt-4" style="color: #6b5842;">Genre:</h4>
+      <ul class="list-inline">
+        {% for genre in movie.genres %}
+          <li class="list-inline-item badge bg-secondary text-light px-3 py-2 m-1">{{ genre.name }}</li>
+        {% empty %}
+          <p class="text-muted">No genres provided</p>
+        {% endfor %}
+      </ul>
+
+      <h4 class="mt-4" style="color: #6b5842;">Cast:</h4>
+      <ul class="list-inline">
+        {% for member in credits.cast|slice:"10" %}
+          <li class="list-inline-item badge bg-dark text-light px-3 py-2 m-1">{{ member.name }}</li>
+        {% empty %}
+          <p class="text-muted">No cast provided</p>
+        {% endfor %}
+      </ul>
+
+      {% if user.is_authenticated %}
+        <div class="mt-4">
+          <h5 style="color: #4b3e2f;">Add to list:</h5>
+          {% if user_lists %}
+            <ul>
+              {% for list in user_lists %}
+                <li>{{ list }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>You do not have any lists.</p>
+            <a href="{% url 'profile' %}" class="btn" style="background-color: #d5a68e; color: white; padding: 10px 20px; font-size: 16px; font-weight: 600; border-radius: 5px; text-decoration: none; transition: background-color 0.3s ease;">
+              Create one
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.btn').forEach(function(button) {
+    button.addEventListener('mouseover', function() {
+      button.style.backgroundColor = '#c49579'; 
+    });
+    button.addEventListener('mouseout', function() {
+      button.style.backgroundColor = '#d5a68e'; 
+    });
+  });
+</script>
+{% endblock %}

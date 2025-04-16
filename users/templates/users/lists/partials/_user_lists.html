@@ -1,0 +1,35 @@
+<ul class="list-group mb-4" style="background-color: transparent; border: none;">
+    {% for list in user_lists %}
+      <li class="list-group-item d-flex justify-content-between align-items-center"
+          style="background-color: #fdf6e3; border: 1px solid #e2d8c3; border-radius: 8px; margin-bottom: 10px;">
+        
+        <a href="#" class="text-decoration-none" style="color: #4b3e2f; font-weight: 500;">
+          {{ list.name }}
+        </a>
+  
+        <button type="submit"
+                class="btn btn-sm"
+                style="background-color: #d96b63; color: white; border: none; border-radius: 6px;"
+                data-bs-toggle="modal"
+                data-bs-target="#delete-list-modal-{{ list.id }}">
+          ❌ Delete
+        </button>
+      </li>
+      
+      {% include "users/modals/_list_delete_confirmation.html" %}
+    {% endfor %}
+  </ul>
+  
+  <div class="d-flex justify-content-start mb-3">
+    <button 
+      hx-get="{% url 'create_list' %}" 
+      hx-swap="innerHTML" 
+      hx-target="#create-form-container"
+      class="btn"
+      style="background-color: #a1865e; color: white; border: none; border-radius: 8px;">
+      ➕ Add List
+    </button>
+  </div>
+  
+  <div id="create-form-container"></div>
+  
